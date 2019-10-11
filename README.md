@@ -1,2 +1,1 @@
-# borg
-Everything BORG
+Bundesoberstufenrealgymnasium Linz.
