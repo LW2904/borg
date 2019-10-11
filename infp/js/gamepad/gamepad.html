@@ -28,10 +28,13 @@
         };
 
         const reset = () => {
+            const { innerWidth, innerHeight } = window;
+            const style = window.getComputedStyle(pacman);
 
             pacman.style.top = '100px';
             pacman.style.left = '100px';
-            pacman.style.width = `${parseValue(window.getComputedStyle(pacman).width) + 25}px`
+            // TODO: Prevent size > viewport
+            pacman.style.width = `${parseValue(style.width) + 25}px`
         }
     </script>
 
