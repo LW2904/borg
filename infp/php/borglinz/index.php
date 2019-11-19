@@ -10,11 +10,55 @@ else $content='home.php';
 <head>
     <title>borglinz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin-top: 2em;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1000px;
+
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        img {
+            width: 300px;
+            height: auto;
+        }
+
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: flex-end;
+
+            border-bottom: 1px solid black;
+        }
+
+        div.flex-seperator {
+            flex-grow: 1;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+        }
+
+        li:not(:last-child) {
+            margin-right: 0.5em;
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <img src="./borg_logo.png" />
+        <div>
+            <img src="./borg_logo.png" />
+        </div>
+
+        <div class='flex-seperator'></div>
 
         <nav>
             <ul>
