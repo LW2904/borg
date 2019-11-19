@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Billard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        let ball, table, queue, score, hit = false, precision = 0;
+
+        const parse = (val) => parseInt(val.slice(0, -2));
+
+        const start = () => {
+            hit = false;
+
+            ball.style.top = '100px';
+            ball.style.left = '350px';
+
+            queue.style.left = '10px';
+
+            // Set to 1000 as 2 seems too short
+            setTimeout(fall, 1000);
+        };
+
+        const fall = () => {
+            if (hit) {
+                ball.style.left = 400 + (precision * 500) + 'px';
+                return;
+            }
+
+            ball.style.left = '350px';
+
+            let top = parse(ball.style.top);
+            if (top < 425) {
+                ball.style.top = (top + 2) + 'px';
+                setTimeout(fall, 7);
+            }
+
+            if (top > 425)
+                ball.style.top = '425px';
+        };
+
+        const shoot = () => {
+            queue.style.left = '100px';
+
+            const top = parse(ball.style.top);
+            if (top >= 275 && top <= 305) {
+                hit = true;
+                precision = Math.abs(Math.abs(top - 290) - 15) / 15;
+                score.innerText = Math.round(precision * 100);
+            }
+        };
+
+        const onClick = (event) => {
+            event = event || window.event;
+
+            const { keyCode } = event;
+
+            switch (keyCode) {
+                case 32: { shoot(); break; } // Space
+                case 13: { start(); break; } // Return
+            }
+        };
+
+        document.onkeydown = onClick;
+    </script>
+
+    <style type="text/css">
+        #billard-table {
+            position: absolute;
+
+            left: 350px;
+            top: 100px;
+
+            width: 840px;
+            height: 460px;
+        }
+
+        #billard-ball {
+            position: absolute;
+
+            left: 350px;
+            top: 100px;
+
+            width: 24px;
+            height: 24px;
+
+            transition: left 0.5s ease;
+        }
+
+        #billard-queue {
+            position: absolute;
+
+            left: 20px;
+            top: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Billard</h1>
+
+    <img src='billardtisch.png' id='billard-table' />
+    <img src='ball.png' id='billard-ball' />
+    <img src='queue.png' id='billard-queue' />
+
+    <p>
+        Score: <span id='billard-score'>N/A</span>
+    </p>
+
+    <script>
+        ball = document.getElementById('billard-ball');
+        table = document.getElementById('billard-table');
+        queue = document.getElementById('billard-queue');
+        score = document.getElementById('billard-score');
+    </script>
+</body>
+
+</html>
