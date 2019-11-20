@@ -40,3 +40,7 @@ label {
 input, button {
     grid-column: 2 / 3;
 }
+
+button {
+    width: fit-content;
+}
