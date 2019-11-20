@@ -1,18 +1,24 @@
-<form action="register.php" method="post" enctype="multipart/form-data">
+<form action="index.php?loc=confirmation" method="post"
+    enctype="multipart/form-data"
+>
     <label>First Name: </label>
-    <input type="text" name="fname">
+    <input required type="text" name="fname"
+        pattern="(.{2,}\. )?[A-Z][a-z]+((-| )[A-Z][a-z]+)*">
 
     <label>Last Name: </label>
-    <input type="text" name="lname">
+    <input required type="text" name="lname"
+        pattern="[A-Z][a-z]+((-| )[A-Z][a-z]+)*(, .{2,})?">
 
     <label>Date of Birth: </label>
-    <input type="text" name="dbirth">
+    <input required type="date" name="dbirth">
 
     <label>E-Mail: </label>
-    <input type="text" name="email">
+    <input required type="email" name="email">
 
     <label>Password: </label>
-    <input type="password" name="pass">
+    <input required type="password" name="pass"
+        pattern="[A-Za-z0-9@_]{10,}"
+        placeholder="At least 10 letters, numbers, @ or _">
 
-    <button type="submit" name="send">Submit</button>
+    <button type="submit" name="register">Register</button>
 </form>
