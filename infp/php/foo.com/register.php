@@ -3,11 +3,11 @@
 >
     <label>First Name: </label>
     <input required type="text" name="fname"
-        pattern="(.{2,}\. )?[A-Z][a-z]+((-| )[A-Z][a-z]+)*">
+        pattern="([A-Z]+[a-z]+\. )?[A-Z][a-z]+((-| )[A-Z][a-z]+)*">
 
     <label>Last Name: </label>
     <input required type="text" name="lname"
-        pattern="[A-Z][a-z]+((-| )[A-Z][a-z]+)*(, .{2,})?">
+        pattern="[A-Z][a-z]+((-| )[A-Z][a-z]+)*(, [A-Z]+[a-z]*)?">
 
     <label>Date of Birth: </label>
     <input required type="date" name="dbirth">
