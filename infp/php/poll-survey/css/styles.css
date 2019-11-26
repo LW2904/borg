@@ -1,0 +1,48 @@
+body {
+    max-width: 400px;
+    min-height: 100vh;
+    font-family: Georgia, "Times New Roman", Times, serif;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main {
+    margin-top: 1em;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+nav li:not(:last-child) {
+    margin-right: 0.5em;
+}
+
+img.logo {
+    width: 400px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 16px;
+}
+
+label {
+    text-align: right;
+    grid-column: 1 / 2;
+}
+
+input, button {
+    grid-column: 2 / 3;
+}
+
+button {
+    /* Because IE & Edge support is overrated */
+    width: fit-content;
+}
