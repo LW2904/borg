@@ -1,4 +1,4 @@
-<form action="index.php?loc=confirmation" method="post"
+<form action="index.php?loc=analysis" method="post"
     enctype="multipart/form-data"
 >
     <label>Zipcode: </label>
