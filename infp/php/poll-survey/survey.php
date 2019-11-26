@@ -10,12 +10,22 @@
         pattern="(1[6-9]|[2-9][0-9]|1[0-4][0-9]|150)">
 
     <label>Party: </label>
-    <input required type="text" name="party"
-        pattern="(SPÖ)|(ÖVP)|(FPÖ)|(Grüne)|(NEOS)|(KPÖ)">
+    <select name="party">
+        <option value="SPÖ">SPÖ</option>
+        <option value="ÖVP">ÖVP</option>
+        <option value="FPÖ">FPÖ</option>
+        <option value="Grüne">Grüne</option>
+        <option value="NEOS">NEOS</option>
+        <option value="KPÖ">KPÖ</option>
+    </select>
 
     <label>Preference vote: </label>
-    <input required type="text" name="pvote"
-        pattern="(Fritz Maier)|(Lisa Fritsch)|(Anna Sigmund)|(Herbert Kranz)">
+    <select name="pvote">
+        <option value="Fritz Maier">Fritz Maier</option>
+        <option value="Lisa Fritsch">Lisa Fritsch</option>
+        <option value="Anna Sigmund">Anna Sigmund</option>
+        <option value="Herbert Kranz">Herbert Kranz</option>
+    </select>
 
     <button type="submit" name="submit">Submit</button>
 </form>
