@@ -8,7 +8,7 @@
 <html>
 
 <head>
-    <title>foo.com</title>
+    <title>Poll Survey</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="css/styles.css" rel="stylesheet">
@@ -31,6 +31,12 @@
     <main>
         <?php include $content ?>
     </main>
+
+    <footer>
+        <p>
+            <strong>MONA</strong> Opinion Research LLC, all rights reserved.
+        </p>
+    </footer>
 </body>
 
 </html>
