@@ -1,4 +1,9 @@
 <?php
+    if (!isset($_POST['register'])) {
+        header('Location: ./index.php?loc=home');
+        die();
+    }
+
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
 
