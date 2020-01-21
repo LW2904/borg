@@ -1,3 +1,6 @@
 # Ignore zipped solutions
 *.zip
 *.7z
+
+# Ignore PhpStorm et al. config
+.idea
