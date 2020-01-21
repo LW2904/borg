@@ -12,9 +12,9 @@
     $db_uri = 'localhost';
     $db_user = 'root';
     $db_pass = '';
-    $db_name = '';
+    $db_name = 'misc';
 
-    $db = newmysqli($db_uri, $db_user, $db_pass, $db_name);
+    $db = new mysqli($db_uri, $db_user, $db_pass, $db_name);
 
     if ($db->connect_error) {
         die('Database connection error: '.$db->connect_error);
@@ -30,11 +30,20 @@ create table if not exists Results (
     primary key(eid)
 )
 EOS;
+
+    $db->query($sql) or die($db->error);
+
+    // TODO: Sanitize input to prevent SQL injection
+    $sql = <<<EOS
+insert into Results (zcode, age, party, pvote)
+values ('$zcode', '$age', '$party', '$pvote')
+EOS;
+
+    $db->query($sql) or die($db->error);
+
+    $db->close();
 ?>
 
 <p>
-    A person aged <strong><?php echo $age; ?></strong> years with the 
-    zipcode <strong><?php echo $zcode; ?></strong> voted for 
-    the <strong><?php echo $party; ?></strong> with the preferred 
-    vote being <strong><?php echo $pvote; ?></strong>.
+    Your submission has been saved.
 </p>
