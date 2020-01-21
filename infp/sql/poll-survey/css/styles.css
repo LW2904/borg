@@ -30,8 +30,9 @@ nav ul {
     list-style-type: none;
 }
 
-nav li:not(:last-child) {
-    margin-right: 0.5em;
+nav li {
+    flex-grow: 1;
+    text-align: center;
 }
 
 img.logo {
@@ -56,4 +57,17 @@ input, button {
 button {
     /* Because IE & Edge support is overrated */
     width: fit-content;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid #646464;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #646464;
+    padding: 0.5em 0.5em;
 }
