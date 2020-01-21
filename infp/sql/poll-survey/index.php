@@ -24,6 +24,8 @@
             <ul>
                 <li><a href="./index.php?loc=home">Home</a></li>
                 <li><a href="./index.php?loc=survey">Survey</a></li>
+                <li><a href="./index.php?loc=list">List</a></li>
+                <li><a href="./index.php?loc=result">Preliminary Result</a></li>
             </ul>
         </nav>
     </header>
