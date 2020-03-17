@@ -24,7 +24,7 @@ EOS;
     $db->query($sql) or die($db->error);
 
     $sql = <<<EOS
-select eid, zcode, age, party, pvote from Results order by zcode
+        select eid, zcode, age, party, pvote from Results order by zcode
 EOS;
 
     $result;
