@@ -1,0 +1,459 @@
+\documentclass[twocolumn]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{mathtools}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\usepackage[format=plain,labelfont=it]{caption}
+
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{arrows.meta}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+}
+
+%\usepackage{libertine}
+%\usepackage[libertine]{newtxmath}
+
+% Tighten up margins before and after \section
+\titlespacing\section{0em}{0.5em}{0.5em}
+
+% Tighten up margins around equations
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize
+    \setlength\abovedisplayskip{0.5em}
+    \setlength\belowdisplayskip{0.5em}
+    \setlength\abovedisplayshortskip{0.3em}
+    \setlength\belowdisplayshortskip{0.5em}
+}
+
+% The \term command is used to introduce new terminology. It should only be used when the term is first introduced.
+\newcommand{\term}[1]{\emph{#1}}
+
+% Visually separate content. Can be used to highlight a certain paragraph or to signify a context break.
+\newcommand{\separator}{\vspace{0.5em}}
+
+% Use when you want to reference a figure.
+\newcommand{\figref}[1]{\emph{Abb.} \ref{#1}}
+
+% Use this to group content into blocks, or "topic groups", most likely in conjunction with separators
+\newcommand{\topic}[1]{\noindent\textbf{#1}}
+
+\newcommand{\avg}[1]{\overline{#1}}
+
+\newcommand{\calcc}[1]{\texttt{#1}}
+
+\newcommand{\twodvector}[2]{\begin{pmatrix*}[r]#1 \\ #2 \\\end{pmatrix*}}
+\newcommand{\smalltwodvector}[2]{\begin{psmallmatrix*}[r]#1 \\ #2 \\\end{psmallmatrix*}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Mathematik}
+\fancyhead[R]{2. Schularbeit}
+
+\begin{document}
+
+\noindent
+Wenn nicht anderweitig angegeben sind alle vorkommenden Variablen und Konstanten reelle Zahlen.
+
+\section{Algebra und Geometrie}
+
+\subsection{Vektoren}
+
+\begin{minipage}[c]{0.78\columnwidth}
+Ein \term{Vektor} $\Vec{a}$ der Dimension $n$ ist ein \term{geordnetes Zahlentupel} mit $n$ Komponenten. Vektoren der Dimensionen 2 und 3 können als Punkte oder Pfeile (siehe \figref{fig:vec1}) in einer zwei- bzw. dreidimensionalen Ebene betrachtet werden.
+\end{minipage}\hfill
+%
+\begin{minipage}[c]{0.2\columnwidth}
+\vspace*{\fill}
+\begin{equation*}
+    \begin{pmatrix}
+        a_1     \\
+        a_2     \\
+        \vdots  \\
+        a_n     \\
+    \end{pmatrix}
+\end{equation*}
+\vspace*{\fill}
+\end{minipage}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        % grid
+        \draw[thin,gray!40] (0,0) grid (6,3);
+
+        % axes
+        \draw[->] (0,0) -- (6,0) node[right]{$x$};
+        \draw[->] (0,0) -- (0,3) node[above]{$y$};
+
+        % vector
+        \draw[<-] (1,2) node[above]{$B$} -- node[above]{$\Vec{a}$} (5,1) node[above]{$A$};
+
+        % length descriptors
+        \draw[dashed] (1,2) -- node[left]{$1$} (1,1) -- node[below]{$4$} (5,1);
+    \end{tikzpicture}
+
+    \caption{Vektor $\Vec{a} = \Vec{AB}$}
+    \label{fig:vec1}
+\end{figure}
+
+Der Vektor $\Vec{a}$ kann durch $\Vec{a} = B - A$ errechnet werden. Gemäß \figref{fig:vec1} mit $A = (5|1)$ und $B = (1|2)$ gilt also
+%
+\begin{equation*}
+    \Vec{a} = B - A = \begin{pmatrix}1 \\ 2\\\end{pmatrix} - \begin{pmatrix}5 \\ 1\\\end{pmatrix} = \begin{pmatrix*}[r]-4 \\ 1\\\end{pmatrix*}
+\end{equation*}
+%
+Die oben verwendete \emph{Vektorsumme}
+%
+\begin{equation*}
+    \begin{pmatrix}a_1 \\ \vdots \\ a_n \\\end{pmatrix} + \begin{pmatrix}b_1 \\ \vdots \\ b_n \\\end{pmatrix} = \begin{pmatrix}a_1 + b_1 \\ \vdots \\ a_n + b_n \\\end{pmatrix}
+\end{equation*}
+%
+ist in ihrer Funktionsweise offensichtlich. Das Ergebnis des \emph{Skalarprodukts}
+%
+\begin{equation*}
+    \begin{pmatrix}a_1 \\ \vdots \\ a_n \\\end{pmatrix} \times \begin{pmatrix}b_1 \\ \vdots \\ b_n \\\end{pmatrix} = a_1 \cdot b_1 + \ldots + a_n \cdot b_n
+\end{equation*}
+%
+ist ein \emph{Skalar}, also eine mathematische Größe, die allein durch die Angabe eines Zahlenwertes charakterisiert ist. Für die Multiplikation eines Vektors mit einem Skalar ist folgend vorzugehen:
+%
+\begin{equation*}
+    k \times \begin{pmatrix}a_1 \\ \vdots \\ a_n \\\end{pmatrix} = \begin{pmatrix}k \\ \vdots \\ k \\\end{pmatrix} \times \begin{pmatrix}a_1 \\ \vdots \\ a_n \\\end{pmatrix} = \begin{pmatrix}k \cdot a_1 \\ \vdots \\ k \cdot a_n \\\end{pmatrix}
+\end{equation*}
+
+\begin{figure}[]
+    \centering
+    \begin{tikzpicture}
+        % grid
+        \draw[thin,gray!40] (0,0) grid (6,3);
+
+        % axes
+        \draw[->] (0,0) -- (6,0) node[right]{$x$};
+        \draw[->] (0,0) -- (0,3) node[above]{$y$};
+
+        % vectors
+        \draw[<-] (1,2) node[above]{$C$} -- node[sloped,below]{$\Vec{BC}$} (3,1);
+        \draw[<-] (3,1) node[below]{$B$} -- node[sloped,below]{$\Vec{AB}$} (5,2) node[above]{$A$};
+        \draw[->,dashed] (5,2) -- node[above]{$\Vec{AC}$} (1,2);
+    \end{tikzpicture}
+
+    \caption{$\smalltwodvector{-2}{-1} + \smalltwodvector{-2}{1} = \smalltwodvector{-4}{0}$}
+    \label{fig:vec_addition}
+\end{figure}
+
+Die Vektorsumme $\Vec{a} + \Vec{b}$ ist geometrisch ermittelbar, indem der Schaft des zweiten Vektors an die Spitze des ersten Vektors verschoben wird. Der \enquote{Summenvektor} verläuft nun also vom Schaft des ersten, zur Spitze des zweiten Vektors (siehe \figref{fig:vec_addition}).
+
+Das Skalarprodukt zweier Vektoren ergibt genau dann Null, wenn die beiden Vektoren normal aufeinander stehen.
+
+\section{Geradengleichungen}
+
+\topic{Explizite Form} Auch allgemeine Geradengleichung.
+\begin{equation*}
+    y = kx + d
+\end{equation*}
+
+\topic{Parameterform} Eine Gerade wird durch einen Punkt $A$ und einen Richtungsvektor $\Vec{a}$ festgelegt.
+\begin{equation*}
+    X = A +s\Vec{a}
+\end{equation*}
+
+\topic{Normalvektorform} Zu jedem Vektor (und daher zu jeder Gerade) in der Ebene gibt es Normalvektoren. Diese sind parallel zueinander und unterscheiden sich nur in ihrer Länge und Orientierung.
+
+Wird ein beliebiger Normalvektor $\Vec{n}$ und ein beliebiger Punkt $A$ einer Geraden in die Gleichung
+\begin{equation*}
+    \Vec{n}X = \Vec{n}A\quad \mathrm{bzw.}\quad \begin{pmatrix}n_x \\ n_y \\\end{pmatrix} \times \begin{pmatrix}x \\ y \\\end{pmatrix} = \begin{pmatrix}n_x \\ n_y \\\end{pmatrix} \times \begin{pmatrix}a_x \\ a_y \\\end{pmatrix}
+\end{equation*}
+eingesetzt so erhält man die Normalvektorform der Geraden.
+
+\separator\topic{Implizite Form} Auch allgemeine Form.
+\begin{equation*}
+    ax + by = c\quad \mathrm{bzw.}\quad ax + by - c = 0
+\end{equation*}
+Ausmultiplizieren der Normalvektorform zu
+\begin{equation*}
+    n_{x}x + n_{y}y = n_{x}a_{x} + n_{y}a_{y}
+\end{equation*}
+führt zur impliziten Form. Es gilt $A=(4|3)$ und $\Vec{n} = \begin{psmallmatrix*}[r]1 \\ -2 \\ \end{psmallmatrix*}$, womit die Normalvektorform
+\begin{equation*}
+    \begin{pmatrix*}[r]1 \\ -2 \\\end{pmatrix*} \times \begin{pmatrix}x \\ y \\\end{pmatrix} = \begin{pmatrix*}[r]1 \\ -2 \\\end{pmatrix*} \times \begin{pmatrix}4 \\ 3 \\\end{pmatrix}
+\end{equation*}
+gegeben ist, welche zu
+\begin{equation*}
+    x - 2y = -2
+\end{equation*}
+aufgelöst werden kann.
+\separator
+
+Liegt ein Punkt $P$ auf einer Geraden $g$, gilt also $P \in g$, muss das Einsetzen der Koordinaten von $P$ in die Geradengleichung eine wahre Aussage erzeugen. Andernfalls gilt $P \not\in g$.
+\separator
+
+Zwei Geraden in der Ebene können drei Arten von Lagebeziehungen haben: \term{schneidend}, \term{parallel} und \term{ident}. Sind die Richtungs- oder Normalvektoren beider Geraden Vielfache voneinander (gilt also $\Vec{a} = k\Vec{b}$ für eine reelle Konstante $k$) sind sie entweder parallel oder ident, andernfalls sind sie schneidend. Liegt zusätzlich ein Punkt der Geraden $g$ auf $h$ sind sie ident.
+
+\subsection{Sinus, Cosinus und Tangens}
+
+Jeder Winkel $a$ mit $0\degree \leq a \leq 360\degree$ entspricht genau einem Punkt am Einheitskreis, dessen Koordinatem dem Cosinus und Sinus des Winkels entsprechen.
+
+Es gibt immer zwei Winkel die den selben Cosinus bzw. Sinus haben, mit Ausnahme von $0\degree + 90\degree c$ für $c \in \mathbb{N}, 0 \leq c \leq 4$ (siehe die äußeren Linien in \figref{fig:sin_cos_example}).
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        % grid
+        \draw[thin,gray!40] (-2.5,-2.5) grid (2.5,2.5);
+
+        % axes
+        \draw[-] (-2.5,0) -- (2.5,0) coordinate (X);
+        \draw[-] (0,-2.5) -- (0,2.5) coordinate (Y);
+
+        % circle
+        \draw[thick] (0,0) circle (2);
+
+        % axis units
+        \foreach \x/\xtext in {-2/-1, 2/1} {
+            \draw (\x,1pt) -- (\x,-1pt) node[anchor=north,fill=white] {$\xtext$};
+            \draw (1pt,\x) -- (-1pt,\x) node[anchor=east,fill=white] {$\xtext$};
+        }
+
+        % triangle
+        \draw[pattern=dots] (0,0) -- (45:2) -- node[right,midway,fill=white]{$\sin a$} (45:2 |- X) -- node[below,midway,fill=white]{$\cos a$} (0,0);
+
+        % equals
+        \draw[dashed] (135:2) -- (135:2 |- X); %node[midway,fill=white,right]{$\sin a$};
+        \draw[dashed] (315:2) -- (Y |- 315:2); %node[midway,fill=white,above]{$\cos a$};
+    \end{tikzpicture}
+    \caption{Graphische Veranschaulichung von $\sin$ und $\cos$ im Einheitskreis.}
+    \label{fig:sin_cos_example}
+\end{figure}
+
+\section{Funktionale Abhängigkeiten}
+
+\subsection{Exponentialfunktionen}
+
+Eine Exponentialfunktion $f$ hat eine Funktionsgleichung der Form
+\begin{equation}\label{eq:exp_func1}
+    f(x) = ab^x\quad \mathrm{bzw.}\quad f(x) = ae^{\lambda x}
+\end{equation}
+wobei $a, b > 0$ angenommen wird.
+
+Augenscheinlich ist, dass immer $f(0) = a$ gilt und $b$ errechnet werden kann wenn $a$ und ein Punkt auf der Funktion bekannt ist.
+
+Weiters ergibt sich aus \eqref{eq:exp_func1}, dass $b = e^{\lambda}$ und weiters, dass $\log_e(b) = \lambda$. Damit können die Gleichungen in die jeweils andere Form umgeschrieben werden.
+
+$b$ ist der Änderungsfaktor pro Einheit, also gilt
+\begin{equation*}
+    f(x + 1) = b \cdot f(x)\quad \mathrm{bzw.}\quad f(x + s) = b^s \cdot f(x)
+\end{equation*}
+und weiters
+\begin{equation*}
+    b = \frac{f(x + 1)}{x}
+\end{equation*}
+
+Die relative (prozentuelle) Änderung pro Einheit kann durch
+\begin{equation*}
+    \frac{f(x + 1) - f(x)}{f(x)} = \frac{f(x + 1)}{f(x)} - \frac{f(x)}{f(x)} = b - 1
+\end{equation*}
+berechnet werden.
+
+Die Ableitungsfunktion einer Exponentialfunktion ist immer direkt proportional zur Stammfunktion. Deutlich wird das bei
+\begin{equation*}
+    f(x) = e^x\quad \mathrm{und}\quad f'(x) = e^x
+\end{equation*}
+
+Wird ein Sachverhalt mit einer Exponentialfunktion beschrieben muss gelten, dass die relative Änderung ($b$) konstant ist und, dass die Änderungsrate proportional zum Funktionswert ist. Auch muss gelten, dass $f(0) > 0$.
+
+\subsection{Sinusfunktion}
+
+Die allgemeine Sinusfunktion hat die Funktionsgleichung
+\begin{equation*}
+    f(x) = a \cdot \sin(bx)
+\end{equation*}
+
+Ihre wichtigste Eigenschaft ist die Periodizität. Es gilt für alle $x$
+\begin{equation*}
+    f(x) = f(x + nP)\quad \mathrm{mit}\quad P = \frac{2\pi}{b}
+\end{equation*}
+wobei $P$ die \term{Periode} genannt wird. Vereinfacht gesagt ist die Periode der $x$-Abstand zwischen zwei benachbarten Maxima oder Minima. $b$ drückt also aus, wie oft die Sinusfunktion im Intervall $[0; 2\pi]$ einen vollständigen Zyklus durchläuft.
+
+Alle Funktionswerte liegen im Intervall $[-a, +a]$, die Extremstellen haben die Werte $a$ bzw $-a$.
+
+\begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}
+        % grid
+        \draw[thin,gray!40,step=.5cm] (0,-1.5) grid (6,1.5);
+
+        % axes
+        \draw[-] (0,0) -- (6,0) coordinate (X);
+        \draw[-] (0,-1.5) -- (0,1.5) coordinate (Y);
+
+        % axe descriptions
+        \foreach \y\ytext in {1/$a$,0/0,-1/$--a$} {
+            \draw[] (2pt,\y) -- (-2pt,\y) node[anchor=east,fill=white]{$\ytext$};
+        }
+        %\foreach \x/\xtext in {1/\frac{1}{2}\pi, 2/\frac{1}{1}\pi, 3/\frac{3}{2}\pi, 4/\frac{2}{1}\pi, 5/\frac{5}{2}\pi, 6/\frac{3}{1}\pi} {
+        %    \draw[] (\x,2pt) -- (\x,-2pt) node[anchor=north,fill=white]{$\xtext$};
+        %}
+
+        % sine function
+        \draw[very thick] (0,0) sin (1,1) cos (2,0) sin (3,-1) cos (4,0) sin (5,1) cos (6,0) node[right]{$\sin \beta$};
+        % cosine function
+        \draw[thin] (0,1) cos (1,0) sin (2,-1) cos (3,0) sin (4,1) cos (5,0) sin (6,-1) node[right]{$\cos \beta$};
+
+        % whole pi markers
+        \draw[dashed] (2,-1.5) -- (2,1.5) node[above]{$\pi$};
+        \draw[dashed] (4,-1.5) -- (4,1.5) node[above]{$2\pi$};
+        \draw[dashed] (6,-1.5) -- (6,1.5) node[above]{$3\pi$};
+
+        % period interval
+        \draw (2,-1.6) -- (2,-1.85) -- (2,-1.75) -- (6,-1.75) node[below,midway]{$\mathrm{Periode} = \frac{2\pi}{1}$} -- (6,-1.6) -- (6,-1.85);
+    \end{tikzpicture}
+
+    \caption{Sinus- und Cosinusfunktion mit $b = 1$.}
+\end{figure}
+
+\section{Wahrscheinlichkeit und Statistik}
+
+\subsection{Statistische Kennzahlen}
+
+Folgend wird eine in $m$ \term{Klassen} eingeteilte Liste der Länge $n$ verwendet. Bei einer Alterserhebung könnten Daten der Form $\{11, 11, 12, 14, 18, 18\}$ erfasst werden, die Klassen wären nun $\{11, 12, 14, 18\}$.
+
+\separator
+\topic{Absolute Häufigkeit $H$} Die abs. Häufigkeit $H_i$ sagt, wie viele Daten der $i$ten Klasse zugeteilt sind.
+\separator
+
+\topic{Relative Häufigkeit $h$}
+\begin{equation*}
+    h_i = \frac{H_i}{n}
+\end{equation*}
+
+\topic{Arithmetisches Mittel $\avg{x}$}
+\begin{equation*}
+    \avg{x} = \frac{1}{n} \sum^{n}_{j = 1}x_j\quad \mathrm{bzw.}\quad \avg{x} = \frac{1}{m} \sum^{n}_{i = 1}H_{i}x_{i}
+\end{equation*}
+
+\topic{2. Quartil $Q_2$, Median} $Q_2$ ist der Wert in der Mitte der geordneten Datenliste. Bei ungeradem $n$ ist er das arithmetische Mittel der beiden mittleren Werte.
+\separator
+
+\topic{1. Quartil und 3. Quartil} $Q_1$ ist der Median der unteren und $Q_3$ der Median der oberen Datenhälfte.
+\separator
+
+\topic{Modus} Der Modus ist der Datenwert der am häufigsten vorkommt
+\separator
+
+\topic{Minimum, Maximum und Spannweite} Das Minimum ist der kleinste, das Maximum der größte vorkommende Datenwert. Die Spannweite ist die Differenz von Maximum und Minimum.
+\separator
+
+\topic{Varianz $s^2$ und Standardabweichung $s$} Die Varianz
+\begin{equation*}
+    s^2 = \frac{1}{n - 1} \sum^{n}_{j = 1}(x_j - \avg{x})^2
+\end{equation*}
+kann elementar zur Standardabweichung $s = \sqrt{s}$ umgerechnet werden.
+
+$s$ ist ein Maß für die Streuung der Daten um das arithmetische Mittel, bei großen $s$ sind zumindest manche Daten weit von Mittel entfernt.
+
+\subsection{Zufallsexperimente}
+
+Der \term{Grundraum} $\Omega$ eines Zufallsexperiment ist die Menge aller möglichen Ergebnisse (auch \term{Elementarereignisse}). Jede Teilmenge des Grundraums ist ein \term{Ereignis}.
+\separator
+
+Zufallsexperimente die eine endliche Anzahl von Möglichen Ergebnissen haben deren Wahrscheinlichkeiten alle gleich sind werden auch \term{Laplace-Experimente} genannt.
+\begin{equation*}
+    P(E) = \frac{\text{Anzahl der günstigen Ergebnisse}}{\text{Anzahl der Elemente des Grundraums}} = \frac{k}{n}
+\end{equation*}
+
+Das Gegenteil eines Ereignisses wird \term{Komplementärereignis} $E'$ genannt. Die Wahrscheinlichkeit dafür ist
+\begin{equation*}
+    P(E') = 1 - P(E)
+\end{equation*}
+
+\subsection{Binomialkoeffizient}
+
+Der \term{Binomialkoeffizient} bezeichnet die Anzahl der eindeutigen \term{Kombinationen} von $k$ Elementen aus einer Menge von $n$ Elementen, angeschrieben als
+\begin{equation*}
+    \begin{pmatrix}n \\ k \\\end{pmatrix} = \frac{n!}{k!(n - k!)}
+\end{equation*}
+
+Auf dem Taschenrechner ist er durch die Funktion \calcc{nCr} für \enquote{from $n$ choose $r$} errechenbar.
+
+\subsection{Zufallsvariable}
+
+Eine \term{Zufallsvariable} ist eine Funktion die jedem Ereignis eines Zufallsexperiments eine reelle Zahl zuordnet. Eine Zufallsvariable ist dann \term{diskret}, wenn die Elemente des zugrundeliegenden Grundraums abzählbar sind.
+
+Allen elementen des Grundraums $\Omega$ wird schon vor Durchführung des Experiments eine reelle Zahl (eine \term{Realisierung}) zugeordnet, $X = \omega_i \rightarrow x_i$. Damit gelingt es reale Vorgänge in die Welt der Zahlen zu übertragen:
+\begin{equation}\label{eq:zufallsvar_example}
+    \begin{split}
+        \Omega =& \{\mathrm{Mo, Di, Mi, \ldots}\} \\
+        X =& \mathrm{Mo} \rightarrow 1, \mathrm{Di} \rightarrow 2, \ldots
+    \end{split}
+\end{equation}
+
+Anhand von \eqref{eq:zufallsvar_example} kann nun also das Ereignis \enquote{Wochenende} zur mathematische Ungleichung $X > 5$ gebracht werden.
+
+\subsection{Wahrscheinlichkeitsfunktion und -verteilung, Verteilungsfunktion}
+
+Die \term{Wahrscheinlichkeitsfunktion} $P$ ordnet jeder Realisierung $x_i$ einer Zufallsvariablen $X$ die Wahrscheinlichkeit $P(X = x_i)$, dass diese Realisierung eintritt zu. Dabei muss gelten, dass $0 \leq P(X = x_i) \leq 1$ und $\sum_{i}P(X = x_i) = 1$.
+\separator
+
+Eine \term{Wahrscheinlichkeitsverteilung} ist nun die Auflistung bzw. Darstellung aller Realisierungen mit ihren zugeordneten Wahrscheinlichkeiten.
+\separator
+
+Die \term{Verteilungsfunktion} $F(x)$ gibt die Wahrscheinlichkeit an, dass die Realisierung einer Zufallsvariable nicht größer als ein vorgegebener Wert ist.
+\begin{equation*}
+    F(X) = P(X \leq x) = \sum_{x_i \leq x}P(X = x_i)
+\end{equation*}
+
+\subsection{Erwartungswert und Standardabweichung}
+
+Der \term{Erwartungswert} $\mu$ einer diskreten Zufallsvariable $X$ ist definiert als
+\begin{equation*}
+    \mu = \sum_{i}x_{i}p_{p_i}
+\end{equation*}
+wobei $x_1, \ldots, x_n$ die Realisierungen und $p_1, \ldots, p_n$ die dazugehörigen Wahrscheinlichkeiten sind.
+
+Die Wahrscheinlichkeit, dass die Zufallsvariable einen Wert annimmt, der in der Nähe von $\mu$ liegt ist hoch, sie muss jedoch nicht in der Wertemenge der Zufallsvariablen liegen.
+
+Die \term{Varianz} der Zufallsvariable
+\begin{equation*}
+    \sigma^2 = \sum_{i}(x_i - \mu)^{2}p_i
+\end{equation*}
+ist aufgrund des Quadrats schwierig zu interpretieren, und wird meistens als Standardabweichung $\sigma = \sqrt{\sigma^2}$ angeschrieben. Die Varianz ist ein Maß für die erwartete Abweichung der Realisierung der Zufallsvariable von Erwartungswert.
+
+\subsection{Binomialverteilung}
+
+Eine Zufallsvariable die beschreibt, wie oft ein mehrmals durchgeführtes Zufallsexperiment günstig ausgeht heißt binomialverteilt, wenn sie folgenden Kriterien genügt:
+
+\begin{enumerate}
+    \item Das Zufallsexperiment hat nur zwei mögliche Ausgänge: \emph{günstig} und \emph{ungünstig}.
+    \item Die Zufallsexperimente sind voneinander unabhängig, die Ausgangs\-wahrschein\-lichkeiten ändern sich während der Versuchsreihe nicht.
+\end{enumerate}
+
+Die Wahrscheinlichkeiten für eine binomialverteilte Zufallsvariable sind wie folgt zu berechnen, wobei $n$ die Anzahl der Versuche, $k$ die Anzahl der günstigen Ereignisse, $p$ die Warscheinlochkeit, dass ein günstiges und $q$ die Wahrscheinlichkeit, dass ein ungünstiges Ereignis eintritt ist.
+%
+\begin{equation*}
+    P(X = k) = \twodvector{n}{k} \times p^{k}q^{n - k}
+\end{equation*}
+%
+Weiters gilt $\mu = np$ und $\sigma = \sqrt{npq}$.
+
+\subsection{Konfidenzintervalle für Binomialverteilung}
+
+Ein \term{Konfidenzintervall} wird auf Basis einer Stichprobe erstellt, um einen unbekannt Parameter zu schätzen. Die relative Häufigkeit $p'$ eines gewünschten Merkmals wird durch eine Stichprobe erhoben. Darauffolgend wird ein symmetrisches Intervall um $p'$ konstruiert, welches einem vorgegebenen \term{Konfidenzniveau} genügt.
+
+\end{document}

@@ -1,0 +1,261 @@
+\documentclass[a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+%\usepackage{multirow}
+%\usepackage{gensymb}
+\usepackage{mathtools}
+%\usepackage{titlesec}
+%\usepackage{wrapfig}
+\usepackage[format=plain,labelfont=it]{caption}
+
+\usepackage{tikz}
+%\usetikzlibrary{patterns}
+%\usetikzlibrary{arrows.meta}
+\usetikzlibrary{er,positioning}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepgfplotslibrary{fillbetween}
+
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{multirow}
+
+%\usepackage[a4paper, margin=2cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{Mathematik}
+\fancyhead[L]{Übungsblatt vom 31. März}
+\fancyhead[R]{Laurenz Weixlbaumer}
+
+\fancyfoot[C]{\thepage}
+
+\newlist{tasks}{enumerate}{3}
+\setlist[tasks]{label=(\alph*)}
+
+\newcommand{\term}[1]{\emph{#1}}
+
+\newcommand{\figref}[1]{\emph{Abb. \ref{#1}}}
+\newcommand{\tabref}[1]{\emph{Tab. \ref{#1}}}
+
+\newcommand{\fkey}[1]{\emph{#1}}
+\newcommand{\pkey}[1]{\underline{\fkey{#1}}}
+
+\setlength{\abovedisplayskip}{1pt}
+\setlength{\belowdisplayskip}{1pt}
+\setlength{\abovedisplayshortskip}{1pt}
+\setlength{\belowdisplayshortskip}{1pt}
+
+\begin{document}
+
+\section{Gewinnschwelle}
+
+\begin{tasks}
+    \item Jenes $x_1$ für welches gilt, dass
+    \begin{equation*}
+        ax_1 + b = cx_1
+    \end{equation*}
+    ist durch einen Term in Abhängigkeit von $a$, $b$ und $c$ zu beschreiben. Dies wird erreicht durch Umformung zu
+    \begin{equation*}
+        x_1(a - c) = -b
+    \end{equation*}
+    und weiters
+    \begin{equation}\label{eq:task1_sol}
+        x_1 = \frac{-b}{a - c} \quad\text{für}\quad a \neq c
+    \end{equation}
+    wobei \eqref{eq:task1_sol} der gesuchte Term ist.
+
+    \item Parameter $a$ beschreibt die Produktionskosten einer Einheit wobei $b$ konstante, von der Anzahl der prod. Einheiten unabhängige, Kosten (z. B. das Anblasen eines Hochofens) beschreibt. $c$ beschreibt den Preis einer verkauften Einheit.
+
+    Soll \eqref{eq:task1_sol} als Funktion $f(d)$ für $d = c - a$ interpretiert werden, ergibt sich der Funktionsterm
+    \begin{equation}\label{eq:task1_f}
+        f(d) = \frac{-b}{a - c} = \frac{b}{d}
+    \end{equation}
+    der eine Hyperbel wie sie in \figref{fig:task1_f} dargestellt ist beschreibt.
+
+    \begin{figure}[!h]
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}%
+            [
+                grid=major,
+                xmin=0,
+                xmax=10,
+                ymin=0,
+                ymax=10,
+                xlabel={$d$},
+                ylabel={$f(d)$},
+                ylabel style={rotate=-90},
+                samples=400,
+                domain=0:10,
+            ]
+                \addplot[thick] (x,{1/x});
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Funktionsgraph von \eqref{eq:task1_f} für $b = 1$}
+        \label{fig:task1_f}
+    \end{figure}
+\end{tasks}
+
+\section{Wirkstoffkonzentration}
+
+\begin{tasks}
+    \item Die Gleichung $c(t_1) = c(0) \cdot 0,7$ sagt im gegeben Kontext aus, dass $t_1$ Stunden nach der Einnahme 70\% des Wirkstoffes im Blut verweilen.
+
+    Weiters impliziert sie ausgehend von der Gleichung
+    \begin{equation}\label{eq:task2_oeq}
+        c(t) = c(0) \cdot 0,85^t
+    \end{equation}
+    dass $0,7 = 0,85^{t_1}$ woraus sich $t_1 = 2,1947$ ergibt.
+
+    \item Aus dem Graph in \figref{fig:task2_f} ist abzulesen, dass die absolute Änderung in den Intervallen mit steigendem $t$ sinkt. Die relative Änderung bleibt jedoch konstant.
+
+    \begin{figure}[!h]
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}%
+            [
+                grid=minor,
+                xlabel={$t$},
+                xmin=0,
+                xmax=10,
+                ymin=0,
+                ylabel={$c(t)$},
+                samples=400,
+                domain=0:10,
+                extra y ticks={100,70,49,34.3},
+                extra y tick style={%
+                    grid=major,
+                    ticklabel pos=top
+                },
+                extra x ticks={2.1947,4.3894,6.5841},
+                extra x tick labels={$t_1$, $2t_1$, $3t_1$},
+                extra x tick style={%
+                    grid=major,
+                    ticklabel pos=top
+                },
+                ylabel style={rotate=-90}
+            ]
+                % 100, 70, 49, 34.3 (2.1947)
+
+                \addplot[thick] (x,{100*0.85^x});
+
+                \draw [|-|] (2.1947,100) --node[right]{30} (2.1947,70);
+                \draw [|-|] (2 * 2.1947,70) --node[right]{21} (4.3894, 49);
+                \draw [|-|] (6.5841, 49) --node[right]{14,7} (6.5841, 34.3);
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Funktionsgraph von \eqref{eq:task2_oeq} für $c(0) = 100$}
+        \label{fig:task2_f}
+    \end{figure}
+\end{tasks}
+
+\section{Polynomfunktion vierten Grades}
+
+\begin{tasks}
+    \item Die erste Ableitung der Funktion $f(x) = ax^4 + x^2 + c$ für $a = 1$ ist
+    \begin{equation*}
+        f'(x) = 4x^3 + 2x
+    \end{equation*}
+    woraus die Steigung der Funktion an der Stelle $x = 2$ mit $f'(2) = 36$ berechnet werden kann. Die Angabe von $c$ ist nicht erforderlich nachdem die Ableitung einer von der Variable unabhängigen Konstanten immer null ergibt.
+
+    \item Die zweite Ableitung von $f$ ist
+    \begin{equation*}
+        f''(x) = a \cdot 12x^2 + 2
+    \end{equation*}
+    und hat für $a > 0$ ersichtlicherweise keine Nullstellen. Es gibt also keinen Punkt in $f$ an dem der Graph keine Krümmung hat, demzufolge kann $f$ keine Wendestellen haben.
+\end{tasks}
+
+\section{Lineare Funktionen}
+
+\begin{tasks}
+    \item Ist $g$ als
+    \begin{equation}\label{eq:task4_gx}
+        g(x) = -0.5x + 6
+    \end{equation}
+    definiert, gilt also $a = -0.5$, so ist die Gleichung $f(x) = g(x)$ nicht lösbar, wie auch in \figref{fig:task4_f} dargestellt.
+
+    \begin{figure}[!h]
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}
+            [
+                grid=major,
+                xlabel={$x$},
+                ylabel={$f(x), g(x)$},
+                samples=100,
+                domain=0:20,
+                xmin=0,
+                xmax=20,
+                legend entries={$f(x)$,$g(x)$}
+            ]
+
+                \addplot[thick] {-0.5 * x + 3};
+                \addplot[dashed] {-0.5 * x + 6};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Funktionsgraph von $f$ und \eqref{eq:task4_gx}}
+        \label{fig:task4_f}
+    \end{figure}
+
+    \item In Abhängigkeit von $a$ kann die Gleichung $f(x) = g(x)$ als
+    \begin{equation*}
+        s(a) = -\frac{6}{2a+1} \quad\text{für}\quad a \neq -0,5
+    \end{equation*}
+    dargestellt werden.
+
+    Um $f$ in einem Punkt $> 0$ zu schneiden, muss $g$ eine kleinere Steigung als $f$ haben. Demnach ist $s$ ist für alle $a < -0.5$ positiv.
+\end{tasks}
+
+\section{Würfel}
+
+\begin{tasks}
+    \item Alle Elemente eines \emph{Grundraums} $\Omega$ sind Elementarereignisse $\omega$, die als mögliches Ergebnis eines Zufallsexperiments angesehen werden können. Ein \emph{Ereignis} ist eine Teilmenge des Grundraums.
+
+    Im gegebenen Beispiel ist der Grundraum $A = \{1, 2, 3, 4, 5, 6\}$ und die Ereignismenge $B = \{2, 3, 5\}$.
+
+    Nachdem $7 \not\in A$ ist $B = \emptyset$; $B$ ist ein \emph{Nullereignis}.
+
+    \item Die Wahrscheinlichkeit, mindestens einmal eine gerade Zahl zu würfeln kann durch die Gegenwahrscheinlichkeit des Ereignisses \enquote{niemals eine gerade Zahl gewürfelt}, also
+    \begin{equation}\label{eq:task5_eq}
+        P = 1 - \left( \frac{1}{2} \right)^n
+    \end{equation}
+    ausgedrückt werden.
+
+    Durch Gleichsetzung von \eqref{eq:task5_eq} mit $0,99$ kann das kleinste $n$ für eine $P \geq 0.99$ ermittelt werden. Nach
+    \begin{align*}
+        0,99 &= 1 - \left( \frac{1}{2} \right) ^n\\
+        n &= 6,6439
+    \end{align*}
+    muss der Würfel also mindestens $7$ Mal geworfen werden.
+
+\end{tasks}
+
+\end{document}
+%Ma poofay is super maaa poofay is great! <3 hehehehehehehe I love you so much my lovelypoof yay!
+%
+%SRSLY
+%I love you so much <3
+%$ __--__ __--__
+% |      |.|    |
+%|        |      |
+% |             |
+%  |           |
+%   |         |
+%    |       |
+%     |     |
+%      |   |
+%        |           $  Holy is this ugly.... still
+%                            ~A
+%                            Hope you still like my coding thing i did, mby it helped you ;3
